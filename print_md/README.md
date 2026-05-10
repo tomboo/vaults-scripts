@@ -67,8 +67,9 @@ The PDF is written to `scripts/tmp/` by default, keeping your vault folders clea
 
 ## Obsidian Integration (Shell Commands Plugin)
 
-This lets you print the current scene with a hotkey or from the Command
-Palette — no Terminal required.
+This lets you print the current Markdown file with a hotkey or from the
+Command Palette. The reliable path is to call `print_md.py` directly with
+`{{file_path:absolute}}`; no workspace-inspection wrapper is needed.
 
 ### Install the plugin
 
@@ -76,40 +77,45 @@ Palette — no Terminal required.
 2. Search **Shell commands** (by Teemu Vainio)
 3. Install → Enable
 
-### Add the two commands
+### Add the commands
 
-Go to **Settings → Shell commands → + New shell command**
+Go to **Settings → Shell commands → + New shell command**.
+
+Use absolute paths for both Python and the script. If you use a virtual
+environment, point to its `bin/python`. If not, use the full path printed by
+`command -v python3` after installing the requirements.
 
 **Command 1 — Print Scene**
-```
-/Users/YOURNAME/scripts/print_md/venv/bin/python /Users/YOURNAME/scripts/print_md/print_md.py "{{file_path}}"
+```bash
+/ABSOLUTE/PATH/TO/python3 /ABSOLUTE/PATH/TO/print_md.py {{file_path:absolute}}
 ```
 - Alias: `Print Scene to PDF`
 - Assign hotkey: `Cmd+Shift+P` (or whatever feels right)
 
 **Command 2 — Print Scene (Double-spaced)**
-```
-/Users/YOURNAME/scripts/print_md/venv/bin/python /Users/YOURNAME/scripts/print_md/print_md.py "{{file_path}}" --double-space
+```bash
+/ABSOLUTE/PATH/TO/python3 /ABSOLUTE/PATH/TO/print_md.py {{file_path:absolute}} --double-space
 ```
 - Alias: `Print Scene to PDF (Double-spaced)`
 - Assign hotkey: `Cmd+Shift+D`
 
 **Command 3 — Print Scene (with frontmatter)**
-```
-/Users/YOURNAME/scripts/print_md/venv/bin/python /Users/YOURNAME/scripts/print_md/print_md.py "{{file_path}}" --frontmatter
+```bash
+/ABSOLUTE/PATH/TO/python3 /ABSOLUTE/PATH/TO/print_md.py {{file_path:absolute}} --frontmatter
 ```
 - Alias: `Print Scene to PDF (with Frontmatter)`
-
-> Replace `/Users/YOURNAME/scripts/` with the actual path to your script.
 
 ### Shell Commands variables used
 | Variable | Expands to |
 |---|---|
-| `{{file_path}}` | Full path to the currently open file |
+| `{{file_path:absolute}}` | Shell-escaped absolute path to the currently open file |
+
+Do not wrap `{{file_path:absolute}}` in quotes. Shell Commands already escapes path characters for the shell; quoting it would make the backslashes literal.
 
 ### After setup
 Open any `.md` scene file → `Cmd+P` → type "Print" → hit Enter.
-The PDF appears in the same folder as the scene, ready to open or send to a printer.
+By default, PDFs are written to `scripts/tmp/`, keeping your vault folders
+clean. Pass `--output-dir` if you want a different location.
 
 ---
 
@@ -153,8 +159,11 @@ On macOS you may need: `brew install pango`
 Check that the `.md` file is valid UTF-8 and has a proper YAML frontmatter block
 (or none at all — missing frontmatter is fine).
 
-**Shell Commands can't find Python**
-Make sure you're using the venv path as shown above. If the venv doesn't exist yet, run:
+**Shell Commands can't find Python / missing packages**
+Use an absolute interpreter path in the command. For a local virtual environment:
 ```bash
-cd /Users/YOURNAME/scripts/print_md && python3 -m venv venv && venv/bin/pip install -r requirements.txt
+cd /ABSOLUTE/PATH/TO/print_md
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
 ```
+Then start each Shell Commands entry with `/ABSOLUTE/PATH/TO/print_md/.venv/bin/python`.

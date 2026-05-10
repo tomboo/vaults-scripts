@@ -324,11 +324,11 @@ Examples:
     for file_arg in args.files:
         path = Path(file_arg)
         if not path.exists():
-            print(f"  ✗  not found:      {file_arg}")
+            print(f"  ✗  not found: {file_arg}", file=sys.stderr)
             fail += 1
             continue
         if path.suffix.lower() != ".md":
-            print(f"  ✗  skipping (not .md): {file_arg}")
+            print(f"  ✗  skipping (not .md): {file_arg}", file=sys.stderr)
             fail += 1
             continue
 

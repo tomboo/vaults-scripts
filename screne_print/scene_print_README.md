@@ -63,7 +63,7 @@ The PDF is written to `/tmp/scene_print/` by default, keeping your vault folders
 
 ## Obsidian Integration (Shell Commands Plugin)
 
-This lets Cynthia print the current scene with a hotkey or from the Command
+This lets you print the current scene with a hotkey or from the Command
 Palette — no Terminal required.
 
 ### Install the plugin

@@ -1,11 +1,18 @@
+# vaults/scripts
 
-## Location
-That said — location doesn't matter, it just needs to be somewhere permanent that won't accidentally get deleted. Other reasonable spots:
+Utility scripts for working with Obsidian vaults.
 
-| Location | Good if… |
-|---|---|
-| `~/scripts/scene_print/` | She has or wants a general scripts folder |
-| `~/Documents/scene_print/` | She prefers keeping things in Documents |
-| Inside the Obsidian vault | She wants everything in one place |
+## Scripts
 
-Wherever she puts it, just update the path in the Shell Commands settings to match.
+### scene_print
+
+Convert Obsidian markdown scenes to print-ready PDFs.
+
+See [`screne_print/scene_print_README.md`](screne_print/scene_print_README.md) for full setup and usage.
+
+**Quick start:**
+
+```bash
+pip3 install python-frontmatter markdown weasyprint
+python3 scene_print.py chapter_01.md
+```

@@ -1,4 +1,4 @@
-# scene_print — Setup & Usage Guide
+# print_md — Setup & Usage Guide
 
 Convert Obsidian markdown scenes to clean, print-ready PDFs with running
 headers, footers, frontmatter, and optional double-spacing.
@@ -30,12 +30,12 @@ pip3 install python-frontmatter markdown weasyprint
 
 ### 2 — Save the script
 
-Put the `scene_print/` folder somewhere permanent. Location doesn't matter as long as it won't accidentally get deleted. Good options:
+Put the `print_md/` folder somewhere permanent. Location doesn't matter as long as it won't accidentally get deleted. Good options:
 
 | Location | Good if… |
 |---|---|
-| `~/scripts/scene_print/` | You already have a general scripts folder |
-| `~/Documents/scene_print/` | You prefer keeping things in Documents |
+| `~/scripts/print_md/` | You already have a general scripts folder |
+| `~/Documents/print_md/` | You prefer keeping things in Documents |
 | Inside the Obsidian vault | You want everything in one place |
 
 Wherever you put it, update the path in the Shell Commands settings to match.
@@ -46,22 +46,22 @@ Wherever you put it, update the path in the Shell Commands settings to match.
 
 ```bash
 # Single file
-python3 ~/scripts/scene_print/scene_print.py chapter_01.md
+python3 ~/scripts/print_md/print_md.py chapter_01.md
 
 # Single file, double-spaced (proofreading)
-python3 ~/scripts/scene_print/scene_print.py chapter_01.md --double-space
+python3 ~/scripts/print_md/print_md.py chapter_01.md --double-space
 
 # Single file, with frontmatter card
-python3 ~/scripts/scene_print/scene_print.py chapter_01.md --frontmatter
+python3 ~/scripts/print_md/print_md.py chapter_01.md --frontmatter
 
 # Multiple files — PDF lands next to each .md file
-python3 ~/scripts/scene_print/scene_print.py scenes/*.md
+python3 ~/scripts/print_md/print_md.py scenes/*.md
 
 # Send all PDFs to a specific folder
-python3 ~/scripts/scene_print/scene_print.py scenes/*.md --output-dir prints/
+python3 ~/scripts/print_md/print_md.py scenes/*.md --output-dir prints/
 ```
 
-The PDF is written to `/tmp/scene_print/` by default, keeping your vault folders clean.
+The PDF is written to `/tmp/print_md/` by default, keeping your vault folders clean.
 
 ---
 
@@ -82,21 +82,21 @@ Go to **Settings → Shell commands → + New shell command**
 
 **Command 1 — Print Scene**
 ```
-/Users/YOURNAME/scripts/scene_print/venv/bin/python /Users/YOURNAME/scripts/scene_print/scene_print.py "{{file_path}}"
+/Users/YOURNAME/scripts/print_md/venv/bin/python /Users/YOURNAME/scripts/print_md/print_md.py "{{file_path}}"
 ```
 - Alias: `Print Scene to PDF`
 - Assign hotkey: `Cmd+Shift+P` (or whatever feels right)
 
 **Command 2 — Print Scene (Double-spaced)**
 ```
-/Users/YOURNAME/scripts/scene_print/venv/bin/python /Users/YOURNAME/scripts/scene_print/scene_print.py "{{file_path}}" --double-space
+/Users/YOURNAME/scripts/print_md/venv/bin/python /Users/YOURNAME/scripts/print_md/print_md.py "{{file_path}}" --double-space
 ```
 - Alias: `Print Scene to PDF (Double-spaced)`
 - Assign hotkey: `Cmd+Shift+D`
 
 **Command 3 — Print Scene (with frontmatter)**
 ```
-/Users/YOURNAME/scripts/scene_print/venv/bin/python /Users/YOURNAME/scripts/scene_print/scene_print.py "{{file_path}}" --frontmatter
+/Users/YOURNAME/scripts/print_md/venv/bin/python /Users/YOURNAME/scripts/print_md/print_md.py "{{file_path}}" --frontmatter
 ```
 - Alias: `Print Scene to PDF (with Frontmatter)`
 
@@ -137,9 +137,9 @@ If there is no `title` field, the filename is used in its place.
 
 | Scenario | PDF location |
 |---|---|
-| Default | `/tmp/scene_print/` |
+| Default | `/tmp/print_md/` |
 | `--output-dir prints/` | Inside `prints/` relative to where you run the command |
-| Obsidian Shell Commands | `/tmp/scene_print/` |
+| Obsidian Shell Commands | `/tmp/print_md/` |
 
 ---
 
@@ -156,5 +156,5 @@ Check that the `.md` file is valid UTF-8 and has a proper YAML frontmatter block
 **Shell Commands can't find Python**
 Make sure you're using the venv path as shown above. If the venv doesn't exist yet, run:
 ```bash
-cd /Users/YOURNAME/scripts/scene_print && python3 -m venv venv && venv/bin/pip install -r requirements.txt
+cd /Users/YOURNAME/scripts/print_md && python3 -m venv venv && venv/bin/pip install -r requirements.txt
 ```

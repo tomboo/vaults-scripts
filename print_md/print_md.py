@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-scene_print.py — Convert Obsidian markdown scenes to print-ready PDFs.
+print_md.py — Convert Obsidian markdown files to print-ready PDFs.
 
 Usage:
-    python scene_print.py <file.md>
-    python scene_print.py <file.md> --double-space
-    python scene_print.py <file.md> --frontmatter
-    python scene_print.py scenes/*.md --output-dir prints/
+    python print_md.py <file.md>
+    python print_md.py <file.md> --double-space
+    python print_md.py <file.md> --frontmatter
+    python print_md.py scenes/*.md --output-dir prints/
 """
 
 import argparse
@@ -279,13 +279,13 @@ def convert_file(input_path: Path, output_dir: Path, double_space: bool, show_fr
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Convert Obsidian markdown scenes to print-ready PDFs.",
+        description="Convert Obsidian markdown files to print-ready PDFs.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python scene_print.py chapter_01.md
-  python scene_print.py chapter_01.md --double-space
-  python scene_print.py scenes/*.md --output-dir prints/
+  python print_md.py chapter_01.md
+  python print_md.py chapter_01.md --double-space
+  python print_md.py scenes/*.md --output-dir prints/
         """,
     )
     parser.add_argument("files", nargs="+", help="Markdown file(s) to convert")
@@ -303,7 +303,7 @@ Examples:
         "--output-dir", "-o",
         default=None,
         metavar="DIR",
-        help="Output directory for PDFs (default: /tmp/scene_print/)",
+        help="Output directory for PDFs (default: /tmp/print_md/)",
     )
     parser.add_argument(
         "--no-open",
@@ -315,7 +315,7 @@ Examples:
     args = parser.parse_args()
 
     mode = "double-spaced" if args.double_space else "standard"
-    print(f"\nscene_print  [{mode} mode]")
+    print(f"\nprint_md  [{mode} mode]")
     print("─" * 42)
 
     ok = fail = 0
@@ -330,7 +330,7 @@ Examples:
             fail += 1
             continue
 
-        out_dir = Path(args.output_dir) if args.output_dir else Path("/tmp/scene_print")
+        out_dir = Path(args.output_dir) if args.output_dir else Path("/tmp/print_md")
         out_dir.mkdir(parents=True, exist_ok=True)
 
         try:
@@ -340,11 +340,13 @@ Examples:
             if args.open_after:
                 subprocess.run(["open", str(out)], check=False)
         except Exception as exc:
-            print(f"  ✗  {path.name}  —  {exc}")
+            print(f"  ✗  {path.name}  —  {exc}", file=sys.stderr)
             fail += 1
 
     print("─" * 42)
     print(f"  Done — {ok} converted, {fail} failed.\n")
+    if fail:
+        print(f"print_md: {fail} file(s) failed — check the file path and format.", file=sys.stderr)
 
 
 if __name__ == "__main__":

@@ -8,6 +8,7 @@ __pycache__/
 *.pyc
 
 # Generated output
-tmp/
+tmp/*
+!tmp/.gitkeep
 *.pdf
 *.zip

@@ -10,6 +10,7 @@ Usage:
 """
 
 import argparse
+import subprocess
 import sys
 from datetime import date
 from pathlib import Path
@@ -302,8 +303,15 @@ Examples:
         "--output-dir", "-o",
         default=None,
         metavar="DIR",
-        help="Output directory for PDFs (default: same folder as input)",
+        help="Output directory for PDFs (default: /tmp/scene_print/)",
     )
+    parser.add_argument(
+        "--no-open",
+        dest="open_after",
+        action="store_false",
+        help="Don't open PDFs in Preview after conversion",
+    )
+    parser.set_defaults(open_after=True)
     args = parser.parse_args()
 
     mode = "double-spaced" if args.double_space else "standard"
@@ -322,13 +330,15 @@ Examples:
             fail += 1
             continue
 
-        out_dir = Path(args.output_dir) if args.output_dir else path.parent
+        out_dir = Path(args.output_dir) if args.output_dir else Path("/tmp/scene_print")
         out_dir.mkdir(parents=True, exist_ok=True)
 
         try:
             out = convert_file(path, out_dir, args.double_space, args.frontmatter)
             print(f"  ✓  {path.name}  →  {out}")
             ok += 1
+            if args.open_after:
+                subprocess.run(["open", str(out)], check=False)
         except Exception as exc:
             print(f"  ✗  {path.name}  —  {exc}")
             fail += 1

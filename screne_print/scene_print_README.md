@@ -57,7 +57,7 @@ python3 ~/scripts/scene_print/scene_print.py scenes/*.md
 python3 ~/scripts/scene_print/scene_print.py scenes/*.md --output-dir prints/
 ```
 
-The PDF is written to the same folder as the `.md` file by default.
+The PDF is written to `/tmp/scene_print/` by default, keeping your vault folders clean.
 
 ---
 
@@ -134,9 +134,9 @@ If there is no `title` field, the filename is used in its place.
 
 | Scenario | PDF location |
 |---|---|
-| Default | Same folder as the `.md` file |
+| Default | `/tmp/scene_print/` |
 | `--output-dir prints/` | Inside `prints/` relative to where you run the command |
-| Obsidian Shell Commands | Same folder as the `.md` file |
+| Obsidian Shell Commands | `/tmp/scene_print/` |
 
 ---
 

@@ -1,4 +1,4 @@
-# vaults/scripts
+# obsidian-tools
 
 A collection of standalone Python scripts for working with Obsidian vaults.
 

@@ -31,8 +31,8 @@ pip3 install python-frontmatter markdown weasyprint
 Or, for a self-contained install, create a local virtual environment:
 
 ```bash
-git clone https://github.com/tomboo/vaults-scripts.git
-cd /path/to/vaults-scripts/print_md
+git clone https://github.com/tomboo/obsidian-tools.git
+cd /path/to/obsidian-tools/print_md
 ./install.sh
 ```
 
